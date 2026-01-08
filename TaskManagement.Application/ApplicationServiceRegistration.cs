@@ -1,0 +1,12 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace TaskManagement.Application;
+
+public static class ApplicationServiceRegisteration
+{
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    {
+        services.AddScoped<Features.Tenants.Commands.CreateTenantCommandHandler>();
+        return services;
+    }
+}
