@@ -2,7 +2,7 @@
 
 namespace TaskManagement.Application;
 
-public static class ApplicationServiceRegisteration
+public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
