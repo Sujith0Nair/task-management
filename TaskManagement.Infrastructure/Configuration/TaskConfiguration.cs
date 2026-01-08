@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TaskManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Task = TaskManagement.Domain.Entities.Task;
 
@@ -29,6 +30,18 @@ public class TaskConfiguration : IEntityTypeConfiguration<Task>
         builder.HasIndex(t => t.BoardId);
         builder.HasMany(t => t.Labels)
             .WithMany(l => l.Tasks)
-            .UsingEntity(j => j.ToTable("TaskLabels"));
+            .UsingEntity<Dictionary<string, object>>(
+                "TaskLabel",
+                j => j
+                    .HasOne<Label>()
+                    .WithMany()
+                    .HasForeignKey("LabelId")
+                    .OnDelete(DeleteBehavior.Restrict),
+                j => j
+                    .HasOne<Task>()
+                    .WithMany()
+                    .HasForeignKey("TaskId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                );
     }
 }
